@@ -18,7 +18,7 @@ public class Att_LFA {
         expressao.confere(expressao.LINGUAGEM1, "100");
         expressao.confere(expressao.LINGUAGEM1, "10");
 
-        //PALAVRAS COM AA OU 
+        //PALAVRAS COM AA OU BB
         expressao.confere(expressao.LINGUAGEM2, "aaaaaaaaa");
         expressao.confere(expressao.LINGUAGEM2, "baba");
 
