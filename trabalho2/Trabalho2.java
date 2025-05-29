@@ -24,10 +24,12 @@ public class Trabalho2 {
         
 
         System.out.println("\nTestando assinatura\n");
-    ER.confere(ER.ASSINATURA_FUNCAO, "void funcao1(int a, float b);"); 
-    ER.confere(ER.ASSINATURA_FUNCAO, "String funcao2();"); 
-    ER.confere(ER.ASSINATURA_FUNCAO, "void funcao();");
-    ER.confere(ER.ASSINATURA_FUNCAO, "void ();"); // Rejeitada
+    ER.confere(ER.ASSINATURA_FUNCAO, "void funcao1(int a, float b)"); 
+    ER.confere(ER.ASSINATURA_FUNCAO, "String funcao2()"); 
+    ER.confere(ER.ASSINATURA_FUNCAO, "void funcao(int a)");
+    ER.confere(ER.ASSINATURA_FUNCAO, "void ()"); // Rejeitada
+    ER.confere(ER.ASSINATURA_FUNCAO, "String funcao2"); 
+    
 
     // Teste parâmetros de função
     System.out.println("\nTestando esse trem de parmetros\n:");
@@ -43,9 +45,9 @@ public class Trabalho2 {
 
     // Teste expressões matemáticas
     System.out.println("\nTestando expressao:");
-    ER.confere(ER.EXPRESSAO_MATHEMATICA, "3 + media/3");
+    ER.confere(ER.EXPRESSAO_MATHEMATICA, "3 +_ (media/3) - x*3.75");
     ER.confere(ER.EXPRESSAO_MATHEMATICA, "-4 + beta * media[1].x * soma(a,b)/4 * vetor[5].idade");
-     
+     ER.confere(ER.EXPRESSAO_MATHEMATICA, "+");
         //Teste 0, tres ou mais : TRES_OU_MAIS
         // ER.confere(ER.TRES_OU_MAIS, "011");
 
