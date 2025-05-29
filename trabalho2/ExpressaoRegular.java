@@ -32,7 +32,9 @@ public class ExpressaoRegular {
     public String OPERADOR_ARITMETICO;
     public String ELEMENTO_EXPRESSAO;
     public String EXPRESSAO_MATHEMATICA; 
-    
+    public String PARAMETROS_ARITMETRICOS;
+    public String PARAMETRO_ARITMETRICO;
+    public String OPERADOR_ARITMETRICO;
 
     /**
      * *****************************************
@@ -71,15 +73,18 @@ public class ExpressaoRegular {
         NUMEROS = "(" + INTEIRO + "|" + REAL + ")";
 
         ATRIBUICAO = IDENT + BRANCOS + "=" + BRANCOS + REAL;
+        TIPO_RETORNO = "(void|int|float|String|double)";
+        // 2. Parametros de funções
+        
+        PARAMETRO = TIPO_RETORNO + BRANCOS + IDENT;
+        LISTA_PARAMETROS = "(" + PARAMETRO + "(" + BRANCOS + "," + BRANCOS + PARAMETRO + ")*"  + ")";
+        PARAMETROS_FUNCAO = "\\(" + BRANCOS +  "(" + LISTA_PARAMETROS + ")?" + BRANCOS + "\\)";
         
         // 1. Assinatura de funções
-        TIPO_RETORNO = "(void|int|float|String)";
-        ASSINATURA_FUNCAO = TIPO_RETORNO + BRANCOS + IDENT + "\\([^)]*\\)" + BRANCOS + ";";
+        
+        ASSINATURA_FUNCAO = TIPO_RETORNO + BRANCOS + IDENT + BRANCOS + PARAMETROS_FUNCAO +  BRANCOS;
 
-        // 2. Parametros de funções
-        PARAMETRO = "(" + TIPO_RETORNO + BRANCOS + IDENT + ")";
-        LISTA_PARAMETROS = "\\(" + PARAMETRO + "(," + BRANCOS + PARAMETRO + ")*" + BRANCOS + "\\)";
-        PARAMETROS_FUNCAO = LISTA_PARAMETROS + "|\\(\\)";
+        
 
         // 3. Condicional
         EXPRESSAO_CONDICIONAL = "(" + NUMEROS + "|" + IDENT + ")" +
@@ -90,26 +95,42 @@ public class ExpressaoRegular {
         CONDICIONAL_IF = "if\\(" + EXPRESSAO_CONDICIONAL + "\\)";
 
         // 4. Expressão matemática
+        
+        PARAMETRO_ARITMETRICO = IDENT;
+        PARAMETROS_ARITMETRICOS = "\\(" + BRANCOS + PARAMETRO_ARITMETRICO + 
+    "(" + BRANCOS + "," + BRANCOS + PARAMETRO_ARITMETRICO + ")*" + 
+    BRANCOS + "\\)";
         OPERADOR_ARITMETICO = "(\\+|-|\\*|/|%|\\.|\\(|\\))";
+
+        ELEMENTO_EXPRESSAO = "(" //  DEFININDO ELEMENTOS QUE PODEM ENTRAR NUMA EXPRESSÃO MAT.
+            + NUMEROS //NUMEROS PADROES
+            + "|"
+            + IDENT + "\\[" + NUMEROS + "\\]\\." + IDENT // ACESSO DE UM ARRAY        
+            + "|"
+            + IDENT + PARAMETROS_ARITMETRICOS // CHAMADA DE UMA FUNÇÃO
+            + "|"
+            + IDENT // UMA VARIÁVEL
+            + ")";
+
+ EXPRESSAO_MATHEMATICA = ELEMENTO_EXPRESSAO
+    + "(" + BRANCOS + OPERADOR_ARITMETICO + BRANCOS + ELEMENTO_EXPRESSAO + ")*";
+        /*OPERADOR_ARITMETICO = "(\\+|-|\\*|/|%|\\.|\\(|\\))";
         ELEMENTO_EXPRESSAO = "(" + NUMEROS + "|" + 
                         IDENT + "\\[" + NUMEROS + "\\]" + "\\." + IDENT + "|" +
                         IDENT + "\\(" + LISTA_PARAMETROS + "\\)" +
                         "|" + IDENT + ")";
         EXPRESSAO_MATHEMATICA = ELEMENTO_EXPRESSAO +
                            "((" + BRANCOS + OPERADOR_ARITMETICO + BRANCOS + 
-                            ELEMENTO_EXPRESSAO + ")*)";
+                            ELEMENTO_EXPRESSAO + ")*)";*/
+        
     }
 
     public void confere(String exp, String sentenca) {
-        if ((sentenca != null) && !sentenca.isEmpty()) {
             if (sentenca.matches(exp)) {
                 System.out.println("W:'" + sentenca + "'........ ACEITA!");
             } else {
-                System.err.println("W:'" + sentenca + "'........ rejeitada.");
+                System.err.println("W:'" + sentenca + "'........ REJEITADA.");
             }
-        } else {
-            System.err.println("Sentença vazia.");
-        }
     }
 
 }
